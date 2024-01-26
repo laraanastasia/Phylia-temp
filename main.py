@@ -34,6 +34,8 @@ async def on_ready():
         print(e)
 
  
+t=weather.getlatitude("74838")
+print(t)
 
 #main entry point
 def main()-> None:
