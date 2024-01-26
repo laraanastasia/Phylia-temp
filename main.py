@@ -24,8 +24,8 @@ bot= commands.Bot(command_prefix="pythia",intents=intents)
 @app_commands.describe(plz="What is the postcode of your town?")
 async def temperatur(interaction: discord.Interaction,plz: str):
     print(f"User: {interaction.user.name}, Plz: {plz}, Guild: {interaction.guild}, Channel: {interaction.channel}")
-    PLZ= plz
-    data=weather.getcordinats(PLZ)
+    dataraw=weather.getcordinats(plz)
+    data=weather.getweather(dataraw[1],dataraw[2])
     await interaction.response.send_message (f'Postalcode: {plz}', ephemeral=True)
     await interaction.channel.send(f"{data}")
     

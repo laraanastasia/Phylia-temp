@@ -14,7 +14,11 @@ def getcordinats(plz:str):
     x= fulldata[index]
     return x
 
-def getweather():
+
+
+def getweather(lat,long):
+    x=lat
+    y=long
 # Setup the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
@@ -24,8 +28,8 @@ def getweather():
 # The order of variables in hourly or daily is important to assign them correctly below
     url = "https://api.open-meteo.com/v1/dwd-icon"
     params = {
-	"latitude": 49.35357,
-	"longitude": 9.15106,
+	"latitude": x,
+	"longitude": y,
 	"current": "temperature_2m",
 	"daily": ["temperature_2m_max", "temperature_2m_min"],
 	"timezone": "Europe/Berlin"
