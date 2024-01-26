@@ -4,6 +4,7 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 import xlwings as xw
+import csv
 
 def getcordinats(plz:str):
     ws= xw.Book("plzdoc.xlsx").sheets["Sheet1"]
@@ -32,6 +33,7 @@ def getweather(lat,long):
 	"longitude": y,
 	"current": "temperature_2m",
 	"daily": ["temperature_2m_max", "temperature_2m_min"],
+    "timeformat": "unixtime",
 	"timezone": "Europe/Berlin"
 }
     responses = openmeteo.weather_api(url, params=params)
@@ -41,7 +43,7 @@ def getweather(lat,long):
     print(f"Coordinates {response.Latitude()}°E {response.Longitude()}°N")
     print(f"Elevation {response.Elevation()} m asl")
     print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
-    print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
+    
 
     # Current values. The order of variables needs to be the same as requested.
     current = response.Current()
@@ -56,15 +58,15 @@ def getweather(lat,long):
     daily_temperature_2m_min = daily.Variables(1).ValuesAsNumpy()
 
     daily_data = {"date": pd.date_range(
-        start = pd.to_datetime(daily.Time(), unit = "s"),
-        end = pd.to_datetime(daily.TimeEnd(), unit = "s"),
-        freq = pd.Timedelta(seconds = daily.Interval()),
+        start = pd.to_datetime(daily.Time(),unit="s").normalize(),
+        end = pd.to_datetime(daily.TimeEnd(),unit="s").normalize(),
         inclusive = "left"
     )}
-    daily_data["temperature_2m_max"] = daily_temperature_2m_max
-    daily_data["temperature_2m_min"] = daily_temperature_2m_min
+    daily_data["maximum"] = daily_temperature_2m_max
+    daily_data["minimum"] = daily_temperature_2m_min
 
-    daily_dataframe = pd.DataFrame(data = daily_data)
+    daily_dataframe = pd.DataFrame(data = daily_data, columns=None, index=["-","-","-","-","-","-","-",])
+    
     
     return daily_dataframe
 

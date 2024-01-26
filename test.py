@@ -1,8 +1,7 @@
 import weather
 
-data,d= weather.getcordinats()
-#get the index of the plz in array 
-print(d.index('01067'))
-x= data[0]
-print(x)
+with open("plz.txt","r") as file:
+    lines=file.readlines()
 
+print(lines)
+    
