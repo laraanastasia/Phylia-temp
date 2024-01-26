@@ -6,6 +6,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import weather
 
+
 #load token
 load_dotenv()
 TOKEN: Final[str]= os.getenv('DISCORD_TOKEN')
@@ -19,14 +20,19 @@ bot= commands.Bot(command_prefix="pythia",intents=intents)
 #Commands 
 
 
-@bot.tree.command(name="temperatur")
-async def temperatur(interaction: discord.Interaction):
-    temp=weather.getweather()
-    await interaction.response.send_message(f"Hallo {interaction.user.mention}! Die max und min Temperaturen in Mosbach für die nächste Woche lauten: {temp} ")
+@bot.tree.command(name="temperatur", description="What is the weather forcast?")
+@app_commands.describe(plz="What is the postcode of your town?")
+async def temperatur(interaction: discord.Interaction,plz: str):
+    print(f"User: {interaction.user.name}, Plz: {plz}, Guild: {interaction.guild}, Channel: {interaction.channel}")
+    PLZ= plz
+    data=weather.getcordinats(PLZ)
+    await interaction.response.send_message (f'Postalcode: {plz}', ephemeral=True)
+    await interaction.channel.send(f"{data}")
+    
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} is now purring!')
+    print(f'{bot.user} is now ready!')
     try:
         synced =await bot.tree.sync()
         print(f"Synced {len(synced)} command(s)")
@@ -34,8 +40,7 @@ async def on_ready():
         print(e)
 
  
-t=weather.getlatitude("74838")
-print(t)
+
 
 #main entry point
 def main()-> None:

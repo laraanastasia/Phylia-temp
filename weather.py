@@ -3,10 +3,16 @@ import requests
 import requests_cache
 import pandas as pd
 from retry_requests import retry
+import xlwings as xw
 
-def getlatitude(plz):
-    res= requests.get("https://geocode.maps.co/search?q={plz}&api_key=65af75a1c57f0277072426zby2e4054")
-    return res.text
+def getcordinats(plz:str):
+    ws= xw.Book("plzdoc.xlsx").sheets["Sheet1"]
+    #read only the plz to enable index searching
+    halfdata=ws['A2:A8299'].options(ndim=1).value
+    fulldata = ws.range("A2:C8299").value
+    index= halfdata.index(plz)
+    x= fulldata[index]
+    return x
 
 def getweather():
 # Setup the Open-Meteo API client with cache and retry on error
