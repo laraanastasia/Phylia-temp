@@ -13,8 +13,11 @@ def feature(plz:str):
     date=data["date"].tolist()
     max=data["maximum"].tolist()
     min=data["minimum"].tolist()
-    dates_clean= [datetime.strftime(ts, '%Y-%m-%d') for ts in date]
-    x=make_embed(dates_clean,max,min)
+    print(max)
+    dates_clean= [datetime.strftime(ts, '%d-%m-%Y') for ts in date]
+    max_clean= ["{:.2f}".format(number) for number in max]
+    min_clean= ["{:.2f}".format(number) for number in min]
+    x=make_embed(dates_clean,max_clean,min_clean)
     return x
 
 
