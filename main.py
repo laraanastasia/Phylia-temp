@@ -5,6 +5,7 @@ from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 import weather
+from pandas import DatetimeIndex
 
 
 #load token
@@ -27,7 +28,11 @@ async def temperatur(interaction: discord.Interaction,plz: str):
     dataraw=weather.getcordinats(plz)
     data=weather.getweather(dataraw[1],dataraw[2])
     await interaction.response.send_message (f'Postalcode: {plz}', ephemeral=True)
-    await interaction.channel.send(f"{data}")
+    date_ls= data["date"].tolist()
+    max_ls=data["maximum"].tolist()
+    min_ls=data["minimum"].tolist()
+    await interaction.channel.send(f"{date_ls},{max_ls},{min_ls}")
+    
     
 
 @bot.event

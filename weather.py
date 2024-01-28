@@ -4,7 +4,8 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 import xlwings as xw
-import csv
+
+
 
 def getcordinats(plz:str):
     ws= xw.Book("plzdoc.xlsx").sheets["Sheet1"]
@@ -33,7 +34,6 @@ def getweather(lat,long):
 	"longitude": y,
 	"current": "temperature_2m",
 	"daily": ["temperature_2m_max", "temperature_2m_min"],
-    "timeformat": "unixtime",
 	"timezone": "Europe/Berlin"
 }
     responses = openmeteo.weather_api(url, params=params)
@@ -65,8 +65,11 @@ def getweather(lat,long):
     daily_data["maximum"] = daily_temperature_2m_max
     daily_data["minimum"] = daily_temperature_2m_min
 
-    daily_dataframe = pd.DataFrame(data = daily_data, columns=None, index=["-","-","-","-","-","-","-",])
+    daily_dataframe = pd.DataFrame(data = daily_data) #, columns=None, index=["-","-","-","-","-","-","-",]
+    daily_dataframe.style.format(precision=3, decimal=",")
+    daily_dataframe.style.format_index(str.upper, axis=1)
+    daily_dataframe.style.relabel_index(["row 1", "row 2","row 2","row 2","row 2","row 2","row 2"], axis=0)
     
-    
-    return daily_dataframe
+   
+    return daily_data
 
