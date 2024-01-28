@@ -5,7 +5,7 @@ import pandas as pd
 from retry_requests import retry
 import xlwings as xw
 import discord
-
+from datetime import datetime
 
 def feature(plz:str):
     raw_data= getcordinats(plz)
@@ -13,7 +13,8 @@ def feature(plz:str):
     date=data["date"].tolist()
     max=data["maximum"].tolist()
     min=data["minimum"].tolist()
-    x=make_embed(date,max,min)
+    dates_clean= [datetime.strftime(ts, '%Y-%m-%d') for ts in date]
+    x=make_embed(dates_clean,max,min)
     return x
 
 
