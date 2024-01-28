@@ -4,7 +4,28 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 import xlwings as xw
+import discord
 
+
+def feature(plz:str):
+    raw_data= getcordinats(plz)
+    data= getweather(raw_data[1],raw_data[2])
+    date=data["date"].tolist()
+    max=data["maximum"].tolist()
+    min=data["minimum"].tolist()
+    x=make_embed(date,max,min)
+    return x
+
+
+
+
+def make_embed(times,maximum,minimum):
+    embed = discord.Embed(title="7-Day Weather Forecast", color=0xD9A4FC)  # You can change the color as per your preference
+
+    # Add fields to the embed
+    for i in range(len(times)):
+        embed.add_field(name=times[i], value=f"Min: {minimum[i]}°C\nMax: {maximum[i]}°C", inline=True)
+    return embed
 
 
 def getcordinats(plz:str):
