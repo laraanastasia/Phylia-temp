@@ -1,5 +1,4 @@
 import openmeteo_requests
-import requests
 import requests_cache
 import pandas as pd
 from retry_requests import retry
@@ -17,6 +16,9 @@ def feature(plz:str):
     dates_clean= [datetime.strftime(ts, '%d-%m-%Y') for ts in date]
     max_clean= ["{:.2f}".format(number) for number in max]
     min_clean= ["{:.2f}".format(number) for number in min]
+    dates_clean.pop(0)
+    max_clean.pop(0)
+    min_clean.pop(0)
     x=make_embed(dates_clean,max_clean,min_clean)
     return x
 
@@ -26,7 +28,9 @@ def feature(plz:str):
 def make_embed(times,maximum,minimum):
     embed = discord.Embed(title="Weather Forecast", color=0xD9A4FC)  
     for i in range(len(times)):
-        embed.add_field(name=times[i], value=f"Min: {minimum[i]}°C\nMax: {maximum[i]}°C", inline=False)
+        embed.add_field(name=times[i], value=f"{'-'*15}\nMin: {minimum[i]}°C\nMax: {maximum[i]}°C\n {'-'*15}", inline=True)
+        
+        
     return embed
 
 
