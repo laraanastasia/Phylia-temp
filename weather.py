@@ -20,11 +20,9 @@ def feature(plz:str):
 
 
 def make_embed(times,maximum,minimum):
-    embed = discord.Embed(title="7-Day Weather Forecast", color=0xD9A4FC)  # You can change the color as per your preference
-
-    # Add fields to the embed
+    embed = discord.Embed(title="Weather Forecast", color=0xD9A4FC)  
     for i in range(len(times)):
-        embed.add_field(name=times[i], value=f"Min: {minimum[i]}°C\nMax: {maximum[i]}°C", inline=True)
+        embed.add_field(name=times[i], value=f"Min: {minimum[i]}°C\nMax: {maximum[i]}°C", inline=False)
     return embed
 
 
@@ -86,10 +84,10 @@ def getweather(lat,long):
     daily_data["maximum"] = daily_temperature_2m_max
     daily_data["minimum"] = daily_temperature_2m_min
 
-    daily_dataframe = pd.DataFrame(data = daily_data) #, columns=None, index=["-","-","-","-","-","-","-",]
-    daily_dataframe.style.format(precision=3, decimal=",")
-    daily_dataframe.style.format_index(str.upper, axis=1)
-    daily_dataframe.style.relabel_index(["row 1", "row 2","row 2","row 2","row 2","row 2","row 2"], axis=0)
+    #daily_dataframe = pd.DataFrame(data = daily_data) #, columns=None, index=["-","-","-","-","-","-","-",]
+    #daily_dataframe.style.format(precision=3, decimal=",")
+    #daily_dataframe.style.format_index(str.upper, axis=1)
+    #daily_dataframe.style.relabel_index(["row 1", "row 2","row 2","row 2","row 2","row 2","row 2"], axis=0)
     
    
     return daily_data
