@@ -6,6 +6,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import weather
 from pandas import DatetimeIndex
+import xlwings as xw
 
 
 #load token
@@ -39,6 +40,7 @@ async def on_ready():
         print(f"Synced {len(synced)} command(s)")
     except Exception as e:
         print(e)
+    ws= xw.Book("plzdoc.xlsx").sheets["Sheet1"]
 
  
 
