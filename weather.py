@@ -26,7 +26,8 @@ def feature(plz:str):
 
 
 def make_embed(times,maximum,minimum):
-    embed = discord.Embed(title="Weather Forecast", color=0xD9A4FC)  
+    embed = discord.Embed(title="Weather Forecast", color=0xD9A4FC) 
+    embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" ) 
     for i in range(len(times)):
         embed.add_field(name=times[i], value=f"{'-'*15}\nMin: {minimum[i]}°C\nMax: {maximum[i]}°C\n {'-'*15}", inline=True)
         
