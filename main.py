@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import weather
 from pandas import DatetimeIndex
 import xlwings as xw
+import Karten
 
 
 #load token
@@ -30,7 +31,12 @@ async def temperatur(interaction: discord.Interaction,plz: str):
     await interaction.response.send_message (f'Postalcode: {plz}', ephemeral=True)
     await interaction.channel.send(embed=x)
     
-    
+@bot.tree.command(name="tarot",description="Whats your destiny?") 
+@app_commands.describe(amount="How many cards do you want to pull?")
+async def tarot(interaction: discord.Interaction,amount:int):
+    x= Karten.feature(amount)
+    await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
+    await interaction.channel.send(embed=x)
 
 @bot.event
 async def on_ready():
