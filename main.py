@@ -36,7 +36,7 @@ async def temperatur(interaction: discord.Interaction,plz: str):
 async def tarot(interaction: discord.Interaction,amount:int):
     x= Karten.feature(amount)
     await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
-    await interaction.channel.send(embed=x)
+    await interaction.channel.send(embeds=x)
 
 @bot.event
 async def on_ready():
