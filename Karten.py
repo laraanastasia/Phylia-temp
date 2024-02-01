@@ -9,13 +9,14 @@ Pic="https://cdn.discordapp.com/attachments/1200206268594401371/1202179250032226
 
 def feature(x):
     y,d,f=ziehen(x)
-    z= make_embed(x,y,d,f)
+    z= make_embed(x,y,d)
     return z
 
 def ziehen(x):
     Gezogen =[]
     Bedeutungen=[]
     Fotos=[]
+    
     for _ in range(x):
         index= random.randint(0,78)
         Gezogen.append(Karten[index])
@@ -31,18 +32,13 @@ def ziehen(x):
     return Gezogen,Bedeutungen,Fotos
 
 
-def make_embed(x,Karten,Bedeutungen,Fotos):
+
+
+def make_embed(x,Karten,Bedeutungen):
     embed = discord.Embed(title="YOUR DESTINY", color=0xD9A4FC,url="https://insighttimer.com/blog/what-is-tarot/")
     embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" )
-    embeds={}
-   
-
-    for i  in range (len(Fotos)):
-        embeds["embed{0}".format(i)]=discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
-        embeds["embed{0}".format(i)].set_image(url=Fotos[i])
-        
         
     for i in range(x):
         embed.add_field(name=Karten[i], value=f"{'-'*5}\nReading:\n {Bedeutungen[i]}\n{'-'*5}", inline=False)
     
-    return embed,embeds
+    return embed
