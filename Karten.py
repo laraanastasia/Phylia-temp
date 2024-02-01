@@ -12,6 +12,21 @@ def feature(x):
     z= make_embed(x,y,d)
     return z
 
+def featureone(x):
+    y,d,f=ziehen(x)
+    y=make_embed_one(x,y,d,f)
+    return y
+
+def featuretwo(x):
+    y,d,f=ziehen(x)
+    y=make_embed_two(x,y,d,f)
+    return y
+
+def featurethree(x):
+    y,d,f=ziehen(x)
+    y=make_embed_three(x,y,d,f)
+    return y
+
 def ziehen(x):
     Gezogen =[]
     Bedeutungen=[]
@@ -33,7 +48,6 @@ def ziehen(x):
 
 
 
-
 def make_embed(x,Karten,Bedeutungen):
     embed = discord.Embed(title="YOUR DESTINY", color=0xD9A4FC,url="https://insighttimer.com/blog/what-is-tarot/")
     embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" )
@@ -42,3 +56,44 @@ def make_embed(x,Karten,Bedeutungen):
         embed.add_field(name=Karten[i], value=f"{'-'*5}\nReading:\n {Bedeutungen[i]}\n{'-'*5}", inline=False)
     
     return embed
+
+def make_embed_one(x,Karten,Bedeutungen,y):
+    embed = discord.Embed(title="YOUR DESTINY", color=0xD9A4FC,url="https://insighttimer.com/blog/what-is-tarot/")
+    embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" )
+        
+    for i in range(x):
+        embed.add_field(name=Karten[i], value=f"{'-'*5}\nReading:\n {Bedeutungen[i]}\n{'-'*5}", inline=False)
+    
+    embed1= discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed1.set_image(url=y[0])
+    
+    return embed,embed1
+
+def make_embed_two(x,Karten,Bedeutungen,y):
+    embed = discord.Embed(title="YOUR DESTINY", color=0xD9A4FC,url="https://insighttimer.com/blog/what-is-tarot/")
+    embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" )
+        
+    for i in range(x):
+        embed.add_field(name=Karten[i], value=f"{'-'*5}\nReading:\n {Bedeutungen[i]}\n{'-'*5}", inline=False)
+    
+    embed1= discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed1.set_image(url=y[0])
+    embed2= discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed2.set_image(url=y[1])
+    return embed,embed1,embed2
+
+
+def make_embed_three(x,Karten,Bedeutungen,y):
+    embed = discord.Embed(title="YOUR DESTINY", color=0xD9A4FC,url="https://insighttimer.com/blog/what-is-tarot/")
+    embed.set_footer(text="‎",icon_url="https://cdn.discordapp.com/attachments/1179867724592193637/1202193113389473832/image.png?ex=65cc9095&is=65ba1b95&hm=dddcb13b59f2772b6b4b352884d8c9424eea27a426e6ac544f854addb88a2ff1&" )
+        
+    for i in range(x):
+        embed.add_field(name=Karten[i], value=f"{'-'*5}\nReading:\n {Bedeutungen[i]}\n{'-'*5}", inline=False)
+    
+    embed1= discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed1.set_image(url=y[0])
+    embed2= discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed2.set_image(url=y[1])
+    embed3=discord.Embed(url="https://insighttimer.com/blog/what-is-tarot/")
+    embed3.set_image(url=y[2])
+    return embed,embed1,embed2,embed3

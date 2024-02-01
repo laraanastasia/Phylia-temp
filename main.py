@@ -34,9 +34,29 @@ async def temperatur(interaction: discord.Interaction,plz: str):
 @bot.tree.command(name="tarot",description="Whats your destiny?") 
 @app_commands.describe(amount="How many cards do you want to pull?")
 async def tarot(interaction: discord.Interaction,amount:int):
-    x= Karten.feature(amount)
+    x,y= Karten.feature(amount)
     await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
-    await interaction.channel.send(embeds=x)
+    await interaction.channel.send(embed=x)
+
+@bot.tree.command(name="tarot_with_cards",description="Whats your destiny (pictured)?") 
+@app_commands.describe(amount="Pull between 1 and 3 cards")
+async def tarot_with_cards(interaction: discord.Interaction,amount:int):
+    if amount==1:
+        await interaction.response.send_message (f'You pulled {amount} card ', ephemeral=True)
+        x= Karten.featureone(amount)
+        await interaction.channel.send(embeds=x)
+    elif amount==2:
+        await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
+        x= Karten.featuretwo(amount)
+        await interaction.channel.send(embeds=x)
+    elif amount==3:
+        await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
+        x= Karten.featurethree(amount)
+        await interaction.channel.send(embeds=x)
+    else:
+        await interaction.response.send_message (f'Please choose between 1 and 3 cards', ephemeral=True)
+   
+    
 
 @bot.event
 async def on_ready():
