@@ -12,7 +12,6 @@ def feature(plz:str):
     date=data["date"].tolist()
     max=data["maximum"].tolist()
     min=data["minimum"].tolist()
-    print(max)
     dates_clean= [datetime.strftime(ts, '%d-%m-%Y') for ts in date]
     max_clean= ["{:.2f}".format(number) for number in max]
     min_clean= ["{:.2f}".format(number) for number in min]
@@ -44,8 +43,8 @@ def getcordinats(plz:str):
     x= fulldata[index]
     return x
 
-
-
+#disclamer 
+#following code was given by the weather API- I made minimal changes to it to fit our project 
 def getweather(lat,long):
     x=lat
     y=long
@@ -92,12 +91,5 @@ def getweather(lat,long):
     )}
     daily_data["maximum"] = daily_temperature_2m_max
     daily_data["minimum"] = daily_temperature_2m_min
-
-    #daily_dataframe = pd.DataFrame(data = daily_data) #, columns=None, index=["-","-","-","-","-","-","-",]
-    #daily_dataframe.style.format(precision=3, decimal=",")
-    #daily_dataframe.style.format_index(str.upper, axis=1)
-    #daily_dataframe.style.relabel_index(["row 1", "row 2","row 2","row 2","row 2","row 2","row 2"], axis=0)
-    
-   
     return daily_data
 
