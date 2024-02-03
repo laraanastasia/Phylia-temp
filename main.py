@@ -5,22 +5,18 @@ from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 import weather
-from pandas import DatetimeIndex
 import xlwings as xw
 import Karten
 
 
-#load token
 load_dotenv()
 TOKEN: Final[str]= os.getenv('DISCORD_TOKEN')
 
-#BOT SETUP
+
 intents = discord.Intents.default()
 intents.message_content = True #NOQA
 bot= commands.Bot(command_prefix="pythia",intents=intents)
 #client.remove_command("help")
-
-#Commands 
 
 
 @bot.tree.command(name="temperatur", description="What is the weather forcast?")
@@ -34,7 +30,7 @@ async def temperatur(interaction: discord.Interaction,plz: str):
 @bot.tree.command(name="tarot",description="Whats your destiny?") 
 @app_commands.describe(amount="How many cards do you want to pull?")
 async def tarot(interaction: discord.Interaction,amount:int):
-    x,y= Karten.feature(amount)
+    x= Karten.feature(amount)
     await interaction.response.send_message (f'You pulled {amount} cards ', ephemeral=True)
     await interaction.channel.send(embed=x)
 
@@ -55,9 +51,6 @@ async def tarot_with_cards(interaction: discord.Interaction,amount:int):
         await interaction.channel.send(embeds=x)
     else:
         await interaction.response.send_message (f'Please choose between 1 and 3 cards', ephemeral=True)
-   
-    
-
 @bot.event
 async def on_ready():
     print(f'{bot.user} is now ready!')
@@ -67,10 +60,6 @@ async def on_ready():
     except Exception as e:
         print(e)
     ws= xw.Book("plzdoc.xlsx").sheets["Sheet1"]
-
- 
-
-
 #main entry point
 def main()-> None:
     bot.run(token=TOKEN)
